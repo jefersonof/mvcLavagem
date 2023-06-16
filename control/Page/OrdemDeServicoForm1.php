@@ -29,6 +29,8 @@ class OrdemDeServicoForm1 extends TPage
         
         // master fields
         $id          = new TEntry('id');
+        $placa       = new TEntry('placa');
+        $veiculo     = new TEntry('veiculo');
         $date        = new TDate('date');
         $customer_id = new TDBUniqueSearch('customer_id', 'samples', 'Customer', 'id', 'name');
         $obs         = new TText('obs');
@@ -71,6 +73,8 @@ class OrdemDeServicoForm1 extends TPage
         $this->form->addFields( [new TLabel('ID')], [$id], 
                                 [new TLabel('Date (*)', '#FF0000')], [$date] );
         $this->form->addFields( [new TLabel('Customer (*)', '#FF0000')], [$customer_id ] );
+        $this->form->addFields( [new TLabel('Veículo')], [$veiculo], 
+                                [new TLabel('Placa', '#FF0000')], [$placa] );
         $this->form->addFields( [new TLabel('Obs')], [$obs] );
         
         $this->form->addContent( ['<h4>Details</h4><hr>'] );
@@ -201,6 +205,30 @@ class OrdemDeServicoForm1 extends TPage
     function onClear($param)
     {
         $this->form->clear();
+    }
+
+     /**
+     * Clear form
+     * @param $param URL parameters
+     */
+    function onOrdem($param)
+    {
+        TTransaction::open('samples');
+
+        $this->form->clear();
+        $data = $this->form->getData();
+
+        $cliente = new Customer($param['key']);
+
+        $data->customer_id = $cliente->id;
+        $data->veiculo     = $cliente->veiculo;
+        $data->placa       = $cliente->placa;
+
+        // send data, do not fire change/exit events
+        TForm::sendData( 'form_Sale', $data, false, false );
+
+        TTransaction::close();
+
     }
     
     /**

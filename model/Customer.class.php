@@ -25,6 +25,9 @@ class Customer extends TRecord
     public function __construct($id = NULL)
     {
         parent::__construct($id);
+      
+        parent::addAttribute('veiculo');
+        parent::addAttribute('placa');
         parent::addAttribute('name');
         parent::addAttribute('address');
         parent::addAttribute('phone');
