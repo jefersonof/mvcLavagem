@@ -30,6 +30,7 @@ class Customer extends TRecord
         parent::addAttribute('placa');
         parent::addAttribute('name');
         parent::addAttribute('address');
+        parent::addAttribute('complemento');
         parent::addAttribute('phone');
         parent::addAttribute('birthdate');
         parent::addAttribute('status');
