@@ -51,6 +51,8 @@ class ClienteList extends TPage
 		$this->datagrid->addQuickColumn('Placa', 'placa', 'center', '20%');
 
 		//cria as ações da grid
+		$this->datagrid->addQuickAction('Ordem de serviço' ,new TDataGridAction(array('OrdemDeServicoForm1', 'onClear')), 'id', 'fas:shower' );//fa:edit blue
+
 		$this->datagrid->addQuickAction('Editar' ,new TDataGridAction(array('ClienteForm', 'onEdit')), 'id', 'fa:edit blue' );//fa:edit blue
 		
 		$this->datagrid->addQuickAction('Excluir', new TDataGridAction(array($this, 'onDelete')), 'id', 'far:trash-alt red' );//far:trash-alt red
